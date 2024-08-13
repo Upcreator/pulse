@@ -113,17 +113,17 @@
           <div v-if="currentStep === 2">
             <form @submit.prevent="handleSubmit" class="max-w-sm mx-auto">
               <div class="mb-5">
-                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ваше Имя</label>
-                <input type="email" id="email" v-model="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Введите Ваше Имя" required />
+                <label for="author" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ваше Имя</label>
+                <input type="author" id="author" v-model="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Введите Ваше Имя" required />
               </div>
               <div class="mb-5">
-                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Введите ваш номер телефона <span class="text-red-500">*</span></label>
+                <label for="telephone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Введите ваш номер телефона <span class="text-red-500">*</span></label>
                 <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400 pb-2"><span class="text-red-500">*</span> Мне важно сказать тебе спасибо</p>
-                <input type="password" id="password" v-model="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Оставьте Ваш Номер" required />
+                <input type="telephone" id="telephone" v-model="telephone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Оставьте Ваш Номер" />
               </div>
               <div class="mb-5">
                 <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Напишите Ваше пожелание</label>
-                <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ваше Пожелание"></textarea>
+                <textarea id="message" v-model="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ваше Пожелание"></textarea>
               </div>
               <div class="mb-5 flex items-center">
                 <label class="inline-flex items-center cursor-pointer">
@@ -154,8 +154,9 @@ export default {
       targetAmount2: 70000,    // Целевая сумма для СВО
       isModalOpen: false,
       currentStep: 1, 
-      email: '',
-      password: '',
+      author: '',
+      telephone: '',
+      message: '',
       terms: false
     };
   },
@@ -180,10 +181,11 @@ export default {
     async handleSubmit() {
       try {
         const response = await axios.post('http://87.228.19.168:8080/comments', {
-          author: this.email,  // Assuming 'email' is used as 'author'
-          text: this.password, // Assuming 'password' is used as 'text'
+          author: this.author,
+          text: this.message,
           visibility: false
         });
+        console.log(response);
         this.closeModal(); 
       } catch (error) {
         console.error('Error submitting form:', error);
