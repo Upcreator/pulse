@@ -2,20 +2,21 @@
   <div class="app">
     <div class="filter-controls">
       <select v-model="filter" @change="filterComments">
-        <option value="all">All comments</option>
-        <option value="true">Visible comments</option>
-        <option value="false">Hidden comments</option>
+        <option value="all">Все пожелания</option>
+        <option value="true">Отображаемые пожелания</option>
+        <option value="false">Скрытые пожелания</option>
       </select>
     </div>
 
     <div v-if="filteredComments.length === 0" class="no-comments">
-      No comments available.
+      Нет таких пожеланий.
     </div>
 
     <CommentCard
       v-for="comment in filteredComments"
       :key="comment.id"
       :comment="comment"
+      @updateComment="fetchComments"
     />
   </div>
 </template>
@@ -30,9 +31,8 @@ const filter = ref('all');
 
 const fetchComments = async () => {
   try {
-    const response = await axios.get('http://87.228.19.168:8080/comments');
+    const response = await axios.get('https://puls-dobra.ru/api/comments');
     comments.value = response.data;
-    filterComments();
   } catch (error) {
     console.error('Error fetching comments:', error);
   }
@@ -44,15 +44,6 @@ const filteredComments = computed(() => {
   }
   return comments.value.filter(comment => comment.visibility.toString() === filter.value);
 });
-
-const filterComments = () => {
-  filteredComments.value = computed(() => {
-    if (filter.value === 'all') {
-      return comments.value;
-    }
-    return comments.value.filter(comment => comment.visibility.toString() === filter.value);
-  }).value;
-};
 
 onMounted(fetchComments);
 </script>

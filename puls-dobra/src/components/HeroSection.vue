@@ -2,7 +2,7 @@
 <template>
     <section id="hero" class="flex flex-col md:flex-row">
       <div class="hero-image md:w-1/2">
-        <img src="/your-image.jpg" alt="Фотография" class="w-full h-auto" />
+        <img src="/hero-image11.jpg" alt="Фотография" class="w-full h-auto" />
       </div>
       <div class="hero-text md:w-1/2 p-8 flex items-center">
         <div class="text-content">

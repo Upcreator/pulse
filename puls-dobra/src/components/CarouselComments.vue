@@ -8,7 +8,7 @@
         <Carousel
           :items-to-show="3"
           :items-to-scroll="1"
-          :autoplay="3"
+          :autoplay="false"
           :loop="true"
           :pagination="true"
           :navigation="true"
@@ -73,7 +73,7 @@ export default {
 
     const fetchComments = async () => {
       try {
-        const response = await axios.get('http://87.228.19.168:8080/comments');
+        const response = await axios.get('https://puls-dobra.ru/api/comments');
         comments.value = response.data.filter(comment => comment.visibility); // Пожелания сразу фильтруются на основе visibility
       } catch (error) {
         console.error('Error fetching comments:', error);

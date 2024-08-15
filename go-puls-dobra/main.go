@@ -26,11 +26,11 @@ func main() {
 	}))
 
 	// Пути для обработчиков
-	e.GET("/comments", getCommentsHandler)
-	e.POST("/comments", createCommentHandler)
-	e.GET("/comments/:id", getCommentHandler)
-	e.PATCH("/comments/:id", updateCommentHandler)
-	e.DELETE("/comments/:id", deleteCommentHandler)
+	e.GET("/api/comments", getCommentsHandler)
+	e.POST("/api/comments", createCommentHandler)
+	e.GET("/api/comments/:id", getCommentHandler)
+	e.PATCH("/api/comments/:id", updateCommentHandler)
+	e.DELETE("/api/comments/:id", deleteCommentHandler)
 
 	// Запуск сервера
 	log.Fatal(e.Start(":8080"))

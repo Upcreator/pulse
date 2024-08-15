@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, defineEmits } from 'vue';
 import axios from 'axios';
 
 const props = defineProps({
@@ -32,6 +32,8 @@ const props = defineProps({
     required: true
   }
 });
+
+const emit = defineEmits(['updateComment']);
 
 const formatDate = (dateString) => {
   const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
@@ -49,35 +51,23 @@ const cardClass = computed(() => {
   };
 });
 
-const acceptComment = async () => {
+const updateCommentVisibility = async (visibility) => {
   try {
-    await axios.patch(`http://87.228.19.168:8080/comments/${props.comment.id}`, {
-      visibility: true,
+    await axios.patch(`https://puls-dobra.ru/api/comments/${props.comment.id}`, {
+      visibility,
       text: props.comment.text,
       author: props.comment.author,
       created_at: props.comment.created_at
     });
-    emit('updateComment', { id: props.comment.id, visibility: true });
-    console.log(`Accepted comment: ${props.comment.id}`);
+    emit('updateComment');
+    console.log(`${visibility ? 'Accepted' : 'Declined'} comment: ${props.comment.id}`);
   } catch (error) {
-    console.error(`Error accepting comment: ${props.comment.id}`, error);
+    console.error(`${visibility ? 'Error accepting' : 'Error declining'} comment: ${props.comment.id}`, error);
   }
 };
 
-const declineComment = async () => {
-  try {
-    await axios.patch(`http://87.228.19.168:8080/comments/${props.comment.id}`, {
-      visibility: false,
-      text: props.comment.text,
-      author: props.comment.author,
-      created_at: props.comment.created_at
-    });
-    emit('updateComment', { id: props.comment.id, visibility: false });
-    console.log(`Declined comment: ${props.comment.id}`);
-  } catch (error) {
-    console.error(`Error declining comment: ${props.comment.id}`, error);
-  }
-};
+const acceptComment = () => updateCommentVisibility(true);
+const declineComment = () => updateCommentVisibility(false);
 </script>
 
 <style scoped>

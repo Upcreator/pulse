@@ -1,4 +1,5 @@
 <template>
+  <ModalForm/>
   <section id="charity-section">
     <div class="charity-actions">
       <h2>Благотворительные акции</h2>
@@ -13,7 +14,7 @@
           Все средства будут направлены на поддержку защитников Родины.
         </p>
         <div class="progress-bar-container">
-          <h3>Собрано:</h3>
+          <!--<h3>Собрано:</h3>-->
           <span class="text-xs">Данные о сумме собранных пожертвований обнавляется один раз в сутки</span>
           <div class="progress-bar">
             <div class="progress" :style="{ width: progressWidth1 }"></div>
@@ -34,7 +35,7 @@
           на закупку лекарств и оплату дорогостоящего лечения подопечных Фонда «Подари жизнь».
         </p>
         <div class="progress-bar-container">
-          <h3>Собрано:</h3>
+          <!--<h3>Собрано:</h3>-->
           <span class="text-xs">Данные о сумме собранных пожертвований обнавляется один раз в сутки</span>
           <div class="progress-bar">
             <div class="progress" :style="{ width: progressWidth2 }"></div>
@@ -47,9 +48,15 @@
         </div>
       </div>
     </div>
+
+    <!-- Alert Message -->
+    <div v-if="showAlert" class="alert fixed top-40 left-1/2 transform -translate-x-1/2 px-6 py-4 bg-green-500 text-white rounded-lg shadow-md z-50">
+      {{ alertMessage }}
+    </div>
+
     <!-- Modal -->
-    <div v-if="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative z-81">
+    <div v-if="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-40">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">
           <button @click="closeModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
             &times;
           </button>
@@ -114,7 +121,7 @@
             <form @submit.prevent="handleSubmit" class="max-w-sm mx-auto">
               <div class="mb-5">
                 <label for="author" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ваше Имя</label>
-                <input type="author" id="author" v-model="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Введите Ваше Имя" required />
+                <input type="author" id="author" v-model="author" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Введите Ваше Имя" required />
               </div>
               <div class="mb-5">
                 <label for="telephone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Введите ваш номер телефона <span class="text-red-500">*</span></label>
@@ -122,13 +129,13 @@
                 <input type="telephone" id="telephone" v-model="telephone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Оставьте Ваш Номер" />
               </div>
               <div class="mb-5">
-                <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Напишите Ваше пожелание</label>
+                <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ваше пожелание</label>
                 <textarea id="message" v-model="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ваше Пожелание"></textarea>
               </div>
               <div class="mb-5 flex items-center">
                 <label class="inline-flex items-center cursor-pointer">
                   <input type="checkbox" id="terms" v-model="terms" class="sr-only peer" required />
-                  <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                  <div class="relative w-14 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                   <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Отмечая, Вы даёте <a href="#" class="text-blue-600 hover:underline dark:text-blue-500">согласие с обработкой персональных данных</a></span>
                 </label>
               </div>
@@ -144,6 +151,7 @@
 </template>
 <script>
 import axios from 'axios';
+import ModalForm from './ModalForm.vue';
 
 export default {
   data() {
@@ -157,7 +165,9 @@ export default {
       author: '',
       telephone: '',
       message: '',
-      terms: false
+      terms: false,
+      showAlert: false,
+      alertMessage: 'Спасибо, сне очень приятно. Твой пожелание появится на сайте после проверки в течении 24 часов. Мы же должны быть в курсе твоих тёплых слов ;)',
     };
   },
   methods: {
@@ -179,25 +189,62 @@ export default {
       }
     },
     async handleSubmit() {
-      try {
-        const response = await axios.post('http://87.228.19.168:8080/comments', {
-          author: this.author,
-          text: this.message,
-          visibility: false
-        });
-        console.log(response);
-        this.closeModal(); 
-      } catch (error) {
-        console.error('Error submitting form:', error);
-        alert('There was an error submitting the form. Please try again.');
-      }
+        console.log('Form submitted'); // Debug log
+        try {
+          const response = await axios.post('https://puls-dobra.ru/api/comments', {
+            author: this.author,
+            text: this.message,
+            visibility: false
+          });
+          console.log(response);
+          this.alertMessage = 'Спасибо, мне очень приятно. Твой пожелание появится на сайте после проверки в течении 24 часов. Мы же должны быть в курсе твоих тёплых слов ;)';
+          this.showAlert = true;
+          this.closeModal(); // Close the modal
+          setTimeout(() => {
+            this.showAlert = false;
+          }, 8000); // Hide alert after 3 seconds
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          this.alertMessage = 'There was an error submitting the form. Please try again.';
+          this.showAlert = true;
+          setTimeout(() => {
+            this.showAlert = false;
+          }, 3000); // Hide alert after 3 seconds
+        }
+      },
+    async copyToClipboard(element) {
+      if (element) {
+        try {
+          await navigator.clipboard.writeText(element.value);
+          console.log('Copied to clipboard!');
+          
+          // Update button text and visibility
+          const button = element.nextElementSibling;
+          const defaultMessage = button.querySelector('#default-message');
+          const successMessage = button.querySelector('#success-message');
+
+          defaultMessage.classList.add('hidden');
+          successMessage.classList.remove('hidden');
+
+          // Optionally hide the success message after a few seconds
+          setTimeout(() => {
+            defaultMessage.classList.remove('hidden');
+            successMessage.classList.add('hidden');
+          }, 5000);
+          
+        } catch (err) {
+          console.error('Failed to copy text: ', err);
+          }
+        }
+        }
+        }
     },
     copyCardNumber(cardNumber) {
       navigator.clipboard.writeText(cardNumber).then(() => {
         alert('Номер счёта скопирован!');
       });
     }
-  },
+  };
   computed: {
     progressWidth1() {
       const percentage = (this.collectedAmount1 / this.targetAmount1) * 100;

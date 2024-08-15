@@ -25,7 +25,7 @@
       </div>
       <div class="nav-links">
         <a href="#charity-section">Акции</a>
-        <a href="#report">Отчет</a>
+        <a href="#carousel">Отчет</a>
       </div>
     </nav>
   </template>
