@@ -1,4 +1,4 @@
-<!-- Хедер -->
+<!-- Header -->
 <template>
     <nav>
       <div class="logo-container">

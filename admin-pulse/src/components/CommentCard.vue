@@ -3,21 +3,39 @@
     <table class="comment-table">
       <thead>
         <tr>
-          <th>Автор</th>
-          <th>Время</th>
+          <th>Legend</th>
+          <th>Value</th>
         </tr>
       </thead>
       <tbody>
         <tr>
+          <td>Автор</td>
           <td>{{ comment.author }}</td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td>{{ comment.email || 'N/A' }}</td>
+        </tr>
+        <tr>
+          <td>Телефон</td>
+          <td>{{ comment.telephone || 'N/A' }}</td>
+        </tr>
+        <tr>
+          <td>Время</td>
           <td>{{ formattedDate }}</td>
+        </tr>
+        <tr>
+          <td>Комментарий</td>
+          <td>{{ comment.text }}</td>
         </tr>
       </tbody>
     </table>
-    <p class="comment-text">{{ comment.text }}</p>
     <div class="comment-actions">
       <button @click="acceptComment">Опубликовать</button>
       <button @click="declineComment">Скрыть</button>
+      <button class="delete-btn" @click="deleteComment">
+        <span class="delete-icon">🗑️</span>
+      </button>
     </div>
   </div>
 </template>
@@ -33,7 +51,7 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['updateComment']);
+const emit = defineEmits(['updateComment', 'deleteComment']);
 
 const formatDate = (dateString) => {
   const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
@@ -57,12 +75,24 @@ const updateCommentVisibility = async (visibility) => {
       visibility,
       text: props.comment.text,
       author: props.comment.author,
+      email: props.comment.email,
+      telephone: props.comment.telephone,
       created_at: props.comment.created_at
     });
     emit('updateComment');
     console.log(`${visibility ? 'Accepted' : 'Declined'} comment: ${props.comment.id}`);
   } catch (error) {
     console.error(`${visibility ? 'Error accepting' : 'Error declining'} comment: ${props.comment.id}`, error);
+  }
+};
+
+const deleteComment = async () => {
+  try {
+    await axios.delete(`https://puls-dobra.ru/api/comments/${props.comment.id}`);
+    emit('deleteComment');
+    console.log(`Deleted comment: ${props.comment.id}`);
+  } catch (error) {
+    console.error(`Error deleting comment: ${props.comment.id}`, error);
   }
 };
 
@@ -113,11 +143,10 @@ const declineComment = () => updateCommentVisibility(false);
   color: #444;
 }
 
-.comment-text {
-  font-size: 1em;
-  color: #444;
-  line-height: 1.5;
-  margin-bottom: 16px;
+.comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .comment-actions button {
@@ -140,10 +169,23 @@ const declineComment = () => updateCommentVisibility(false);
 }
 
 .comment-actions button:last-child {
-  background-color: #f44336; /* Red */
+  background-color: #f44336;
 }
 
 .comment-actions button:last-child:hover {
   background-color: #e53935;
+}
+
+.delete-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  color: #f44336;
+}
+
+.delete-icon {
+  display: inline-block;
+  vertical-align: middle;
 }
 </style>

@@ -6,6 +6,7 @@
       <HeroSection />
       <DateRange />
       <CharitySection />
+      <Info />
       <CarouselComments />
       <ModalForm/>
       <Carousel />
@@ -16,14 +17,14 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import LoadingScreen from './components/LoadingScreen.vue';
+import Header from './components/Header.vue';
 import HeroSection from './components/HeroSection.vue';
 import DateRange from './components/DateRange.vue';
 import CharitySection from './components/CharitySection.vue';
-import ProgressBar from './components/ProgressBar.vue';
+import Info from './components/Info.vue';
 import ModalForm from './components/ModalForm.vue';
 import CarouselComments from './components/CarouselComments.vue';
 import Carousel from './components/Carousel.vue';
-import Header from './components/Header.vue';
 const isLoading = ref(true);
 
 onMounted(() => {

@@ -42,11 +42,11 @@
           <!-- Form Steps -->
           <div v-if="currentStep === 1">
             <!-- Clipboard Button and Input -->
-            <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400 pb-2">По номерам этих счетов можно пожертвовать любую сумму, а дальше отправить пожелаение</p>
-            <span id="default-message">Помощь детям</span>
+            <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400 pb-2">По номерам карт можно пожертвовать любую сумму, а дальше отправить пожелание</p>
+            <span id="default-message">Помощь Защитникам Отечества</span>
             <div class="grid grid-cols-8 gap-2 w-full max-w-[23rem] mb-4">
               <label for="donation-account-1" class="sr-only">Label</label>
-              <input ref="donationAccount1" id="donation-account-1" type="text" class="col-span-6 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" value="1234 1234 1234 1233" disabled readonly>
+              <input ref="donationAccount1" id="donation-account-1" type="text" class="col-span-6 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" value="2200012705653607" disabled readonly>
               <button @click="copyToClipboard($refs.donationAccount1)" class="col-span-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 items-center inline-flex justify-center">
                 <span id="default-message">Copy</span>
                 <span id="success-message" class="hidden inline-flex items-center">
@@ -57,10 +57,11 @@
                 </span>
               </button>
             </div>
-            <span id="default-message">Помощь Защитникам Отечества</span>
+            <div class="pb-3"><span class="text-gray-400">*получатель Евгения Сергеевна С.</span></div>
+            <span id="default-message" class="py-10">Помощь детям</span>
             <div class="grid grid-cols-8 gap-2 w-full max-w-[23rem] mb-4">
               <label for="donation-account-2" class="sr-only">Label</label>
-              <input ref="donationAccount2" id="donation-account-2" type="text" class="col-span-6 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" value="1234 1234 1234 1234" disabled readonly>
+              <input ref="donationAccount2" id="donation-account-2" type="text" class="col-span-6 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" value="2200012701612185" disabled readonly>
               <button @click="copyToClipboard($refs.donationAccount2)" class="col-span-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 items-center inline-flex justify-center">
                 <span id="default-message">Copy</span>
                 <span id="success-message" class="hidden inline-flex items-center">
@@ -71,6 +72,7 @@
                 </span>
               </button>
             </div>
+            <div class="pb-3"><span class="text-gray-400 pb-6">*получатель Ирина Ивановна П.</span></div>
             <button @click="nextStep" class="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Далее</button>
           </div>
   
@@ -91,12 +93,12 @@
               </div>
               <div class="mb-5">
                 <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ваше пожелание</label>
-                <textarea id="message" v-model="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ваше Пожелание"></textarea>
+                <textarea id="message" v-model="message" rows="4" maxlength="250" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ваше пожелание"></textarea>
               </div>
               <div class="mb-5 flex items-center">
                 <label class="inline-flex items-center cursor-pointer">
                   <input type="checkbox" id="terms" v-model="terms" class="sr-only peer" required />
-                  <div class="relative w-14 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[0px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                  <div class="relative w-12 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[0px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-4 after:h-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                   <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Отмечая, Вы даёте <a href="#" class="text-blue-600 hover:underline dark:text-blue-500">согласие с обработкой персональных данных</a></span>
                 </label>
               </div>
@@ -128,16 +130,17 @@
         telephone: '',
         terms: false,
         showAlert: false,
-        alertMessage: 'Спасибо, сне очень приятно. Твой пожелание появится на сайте после проверки в течении 24 часов. Мы же должны быть в курсе твоих тёплых слов ;)',
+        alertMessage: 'Спасибо',
       };
     },
     methods: {
       openModal() {
         this.isModalOpen = true;
+        this.currentStep = 2; 
       },
       closeModal() {
         this.isModalOpen = false;
-        this.currentStep = 1; 
+        this.currentStep = 2; 
       },
       nextStep() {
         if (this.currentStep < 2) {
@@ -154,11 +157,13 @@
         try {
           const response = await axios.post('https://puls-dobra.ru/api/comments', {
             author: this.author,
+            email: this.email,
+            telephone: this.telephone,
             text: this.message,
             visibility: false
           });
           console.log(response);
-          this.alertMessage = 'Спасибо, мне очень приятно. Твой пожелание появится на сайте после проверки в течении 24 часов. Мы же должны быть в курсе твоих тёплых слов ;)';
+          this.alertMessage = 'Спасибо';
           this.showAlert = true;
           this.closeModal(); // Close the modal
           setTimeout(() => {
@@ -174,30 +179,30 @@
         }
       },
       async copyToClipboard(element) {
-    if (element) {
-      try {
-        await navigator.clipboard.writeText(element.value);
-        console.log('Copied to clipboard!');
-        
-        // Update button text and visibility
-        const button = element.nextElementSibling;
-        const defaultMessage = button.querySelector('#default-message');
-        const successMessage = button.querySelector('#success-message');
+        if (element) {
+          try {
+            await navigator.clipboard.writeText(element.value);
+            console.log('Copied to clipboard!');
+            
+            // Update button text and visibility
+            const button = element.nextElementSibling;
+            const defaultMessage = button.querySelector('#default-message');
+            const successMessage = button.querySelector('#success-message');
 
-        defaultMessage.classList.add('hidden');
-        successMessage.classList.remove('hidden');
+            defaultMessage.classList.add('hidden');
+            successMessage.classList.remove('hidden');
 
-        // Optionally hide the success message after a few seconds
-        setTimeout(() => {
-          defaultMessage.classList.remove('hidden');
-          successMessage.classList.add('hidden');
-        }, 5000);
-        
-      } catch (err) {
-        console.error('Failed to copy text: ', err);
+            // Optionally hide the success message after a few seconds
+            setTimeout(() => {
+              defaultMessage.classList.remove('hidden');
+              successMessage.classList.add('hidden');
+            }, 5000);
+            
+          } catch (err) {
+            console.error('Failed to copy text: ', err);
+          }
+        }
       }
-    }
-    }
     }
   };
   </script>

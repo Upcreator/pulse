@@ -1,6 +1,6 @@
 <template>
   <section id="carousel">
-    <h2 class="text-4xl font-bold text-blue-700 text-center pt-8 pb-10">Отчёт о проделанной работе</h2>
+    <div class="carousel-title"><h2 class="text-4xl font-bold text-center pt-8 pb-10">Отчёт о проделанной работе</h2></div>
     <div id="default-carousel" class="relative w-full z-0" data-carousel="slide">
       <!-- Carousel wrapper -->
       <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
@@ -88,5 +88,11 @@ setInterval(nextSlide, 3000); // Слайд меняется каждые 3 се
 
 .transition-opacity {
   transition: opacity 0.7s ease-in-out;
+}
+
+.carousel-title h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
 }
 </style>
